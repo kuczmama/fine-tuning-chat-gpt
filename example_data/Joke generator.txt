@@ -1,0 +1,73 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joke Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Joke Generator</h1>
+        <p id="joke">Click the button to get a joke.</p>
+        <button onclick="generateJoke()">Generate Joke</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #d3d4d5;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+```
+
+[script.js]
+```javascript
+const jokeElement = document.getElementById('joke');
+
+function generateJoke() {
+    fetch('https://api.jokeapi.dev/joke/any')
+        .then(response => response.json())
+        .then(data => {
+            if (data.type === 'single') {
+                jokeElement.textContent = data.joke;
+            } else {
+                jokeElement.textContent = data.setup + ' ' + data.delivery;
+            }
+        });
+}
+```

@@ -1,0 +1,103 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div id="logo">NEWS</div>
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>World</li>
+                <li>Business</li>
+                <li>Sport</li>
+                <li>Culture</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="main-news">
+            <h1>Main Headline</h1>
+            <p>Main news summary...</p>
+        </section>
+
+        <section id="secondary-news">
+            <h2>Secondary Headline 1</h2>
+            <p>Summary...</p>
+
+            <h2>Secondary Headline 2</h2>
+            <p>Summary...</p>
+        </section>
+    </main>
+
+    <footer>
+        Copyright 2023, News Website
+    </footer>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+}
+
+header {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#logo {
+    font-size: 2em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#main-news h1 {
+    font-size: 2em;
+}
+
+#secondary-news h2 {
+    font-size: 1.5em;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+```

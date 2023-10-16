@@ -1,0 +1,93 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Photo Gallery</h1>
+    </header>
+    <main>
+        <div id="gallery"></div>
+    </main>
+    <footer>
+        <p>Photo Gallery &copy; 2023</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+#gallery img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+```
+
+[script.js]
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+    let photos = [
+        'photo1.jpg',
+        'photo2.jpg',
+        'photo3.jpg',
+        'photo4.jpg',
+        'photo5.jpg',
+        'photo6.jpg'
+    ];
+
+    let galleryContainer = document.getElementById('gallery');
+    
+    photos.forEach(photo => {
+        let img = document.createElement('img');
+        img.src = photo;
+        galleryContainer.appendChild(img);
+    });
+});
+```

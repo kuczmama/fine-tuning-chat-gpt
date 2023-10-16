@@ -1,0 +1,128 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+canvas {
+    border: 2px solid black;
+}
+```
+
+[script.js]
+```javascript
+const canvas = document.getElementById('gameCanvas');
+const context = canvas.getContext('2d');
+const boxSize = 20;
+const canvasSize = canvas.width;
+const numBoxes = canvasSize / boxSize;
+let snake = [];
+let food = {};
+let direction = { x: 1, y: 0 };
+let newDirection = { x: 1, y: 0 };
+let gameOver = false;
+
+snake[0] = { x: 5, y: 5 };
+
+document.addEventListener("keydown", changeDirection);
+
+function changeDirection(event) {
+    switch(event.keyCode) {
+        case 37:
+            newDirection = { x: -1, y: 0 };
+            break;
+        case 38:
+            newDirection = { x: 0, y: -1 };
+            break;
+        case 39:
+            newDirection = { x: 1, y: 0 };
+            break;
+        case 40:
+            newDirection = { x: 0, y: 1 };
+            break;
+    }
+}
+
+function spawnFood() {
+    food = {
+        x: Math.floor(Math.random() * numBoxes),
+        y: Math.floor(Math.random() * numBoxes)
+    };
+}
+
+function drawGame() {
+    context.clearRect(0, 0, canvasSize, canvasSize);
+
+    for(let i = 0; i < snake.length; i++) {
+        context.fillStyle = (i === 0) ? 'green' : 'white';
+        context.fillRect(snake[i].x * boxSize, snake[i].y * boxSize, boxSize, boxSize);
+        context.strokeStyle = 'black';
+        context.strokeRect(snake[i].x * boxSize, snake[i].y * boxSize, boxSize, boxSize);
+    }
+
+    context.fillStyle = 'red';
+    context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
+
+    let snakeHeadX = snake[0].x + newDirection.x;
+    let snakeHeadY = snake[0].y + newDirection.y;
+
+    if(snakeHeadX == food.x && snakeHeadY == food.y) {
+        spawnFood();
+    } else {
+        snake.pop();
+    }
+
+    let newHead = {
+        x: snakeHeadX,
+        y: snakeHeadY
+    };
+
+    snake.unshift(newHead);
+
+    for(let i = 1; i < snake.length; i++) {
+        if(snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
+            gameOver = true;
+            break;
+        }
+    }
+
+    if(snakeHeadX < 0 || snakeHeadY < 0 || snakeHeadX >= numBoxes || snakeHeadY >= numBoxes) {
+        gameOver = true;
+    }
+
+    direction = newDirection;
+
+    if(gameOver) {
+        context.fillStyle = 'black';
+        context.font = '30px Arial';
+        context.fillText('Game Over', canvasSize / 2 - 75, canvasSize / 2);
+        return;
+    }
+
+    setTimeout(drawGame, 100);
+}
+
+spawnFood();
+drawGame();
+```

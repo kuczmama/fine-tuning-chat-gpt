@@ -1,0 +1,173 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="grid"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #faf8ef;
+}
+
+#grid {
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.tile {
+    width: 100%;
+    height: 100%;
+    background-color: #cdc0b4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+```
+
+[script.js]
+```javascript
+const grid = document.getElementById("grid");
+const size = 4;
+let tiles = [];
+for (let i = 0; i < size; i++) {
+    tiles[i] = Array(size).fill(0);
+}
+
+function drawTiles() {
+    grid.innerHTML = '';
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const tile = document.createElement("div");
+            tile.classList.add("tile");
+            if (tiles[i][j] !== 0) {
+                tile.textContent = tiles[i][j];
+            }
+            grid.appendChild(tile);
+        }
+    }
+}
+
+function addRandomTile() {
+    let emptyPositions = [];
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            if (tiles[i][j] === 0) {
+                emptyPositions.push({ x: i, y: j });
+            }
+        }
+    }
+    if (emptyPositions.length > 0) {
+        const position = emptyPositions[Math.floor(Math.random() * emptyPositions.length)];
+        tiles[position.x][position.y] = Math.random() > 0.5 ? 2 : 4;
+    }
+}
+
+function slide(row) {
+    const arr = row.filter(val => val);
+    const missing = size - arr.length;
+    const zeros = Array(missing).fill(0);
+    return zeros.concat(arr);
+}
+
+function merge(row) {
+    for (let i = size - 1; i > 0; i--) {
+        if (row[i] === row[i - 1]) {
+            row[i] *= 2;
+            row[i - 1] = 0;
+        }
+    }
+    return row;
+}
+
+function flip(grid) {
+    for (let i = 0; i < size; i++) {
+        grid[i].reverse();
+    }
+}
+
+function rotate(grid) {
+    const newGrid = [];
+    for (let i = 0; i < size; i++) {
+        newGrid[i] = [];
+        for (let j = 0; j < size; j++) {
+            newGrid[i][j] = grid[j][i];
+        }
+    }
+    return newGrid;
+}
+
+function move(direction) {
+    let moved = false;
+    for (let i = 0; i < size; i++) {
+        if (direction === "right") {
+            tiles[i] = slide(tiles[i]);
+            tiles[i] = merge(tiles[i]);
+            tiles[i] = slide(tiles[i]);
+        } else if (direction === "left") {
+            flip(tiles);
+            tiles[i] = slide(tiles[i]);
+            tiles[i] = merge(tiles[i]);
+            tiles[i] = slide(tiles[i]);
+            flip(tiles);
+        } else if (direction === "down") {
+            tiles = rotate(tiles);
+            tiles[i] = slide(tiles[i]);
+            tiles[i] = merge(tiles[i]);
+            tiles[i] = slide(tiles[i]);
+            tiles = rotate(tiles);
+            tiles = rotate(tiles);
+            tiles = rotate(tiles);
+        } else if (direction === "up") {
+            tiles = rotate(tiles);
+            flip(tiles);
+            tiles[i] = slide(tiles[i]);
+            tiles[i] = merge(tiles[i]);
+            tiles[i] = slide(tiles[i]);
+            flip(tiles);
+            tiles = rotate(tiles);
+            tiles = rotate(tiles);
+            tiles = rotate(tiles);
+        }
+    }
+    drawTiles();
+    addRandomTile();
+    drawTiles();
+}
+
+document.addEventListener('keyup', function(e) {
+    if (e.key === "ArrowUp") {
+        move("up");
+    } else if (e.key === "ArrowRight") {
+        move("right");
+    } else if (e.key === "ArrowDown") {
+        move("down");
+    } else if (e.key === "ArrowLeft") {
+        move("left");
+    }
+});
+
+drawTiles();
+addRandomTile();
+drawTiles();
+```

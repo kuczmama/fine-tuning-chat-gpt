@@ -1,0 +1,102 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Template</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">BrandName</div>
+            <ul class="nav-list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Welcome to BrandName</h1>
+            <p>Discover our amazing features and benefits.</p>
+            <button>Learn More</button>
+        </section>
+        <section class="features">
+            <!-- Additional content goes here -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 BrandName. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.logo {
+    font-size: 24px;
+    margin-left: 20px;
+    float: left;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+    margin-right: 20px;
+}
+
+.nav-list li {
+    display: inline;
+    margin-left: 15px;
+}
+
+.nav-list a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 0;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+footer {
+    background-color: #f3f3f3;
+    text-align: center;
+    padding: 20px 0;
+}
+```

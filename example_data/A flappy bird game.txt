@@ -1,0 +1,126 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="flappyBirdCanvas" width="480" height="640"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4ec0ca;
+}
+
+canvas {
+    border: 1px solid black;
+    background-color: #4ec0ca;
+}
+```
+
+[script.js]
+```javascript
+const canvas = document.getElementById("flappyBirdCanvas");
+const ctx = canvas.getContext("2d");
+
+let bird = {
+    x: canvas.width / 4,
+    y: canvas.height / 2,
+    radius: 15,
+    gravity: 0.5,
+    velocity: 0,
+    jump: -8
+};
+
+let pipes = [];
+pipes[0] = {
+    x: canvas.width,
+    y: 0,
+    width: 80,
+    gap: 200
+};
+
+let score = 0;
+
+canvas.addEventListener('click', function() {
+    bird.velocity = bird.jump;
+});
+
+function drawBird() {
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawPipe(pipeX, pipeY, pipeWidth, pipeHeight) {
+    ctx.fillStyle = "green";
+    ctx.fillRect(pipeX, pipeY, pipeWidth, pipeHeight);
+}
+
+function updateGame() {
+    bird.velocity += bird.gravity;
+    bird.y += bird.velocity;
+    
+    for (let i = 0; i < pipes.length; i++) {
+        pipes[i].x -= 2;
+
+        if (pipes[i].x == canvas.width / 2) {
+            pipes.push({
+                x: canvas.width,
+                y: Math.floor(Math.random() * canvas.height / 2),
+                width: 80,
+                gap: 200
+            });
+        }
+
+        if (bird.x + bird.radius > pipes[i].x && bird.x - bird.radius < pipes[i].x + pipes[i].width && (bird.y - bird.radius < pipes[i].y + canvas.height / 2 || bird.y + bird.radius > pipes[i].y + canvas.height / 2 + pipes[i].gap) || bird.y + bird.radius > canvas.height) {
+            bird.y = canvas.height / 2;
+            bird.velocity = 0;
+            score = 0;
+            pipes = [];
+            pipes[0] = {
+                x: canvas.width,
+                y: 0,
+                width: 80,
+                gap: 200
+            };
+        }
+
+        if (pipes[i].x + pipes[i].width == bird.x) {
+            score++;
+        }
+
+        drawPipe(pipes[i].x, 0, pipes[i].width, pipes[i].y + canvas.height / 2);
+        drawPipe(pipes[i].x, pipes[i].y + canvas.height / 2 + pipes[i].gap, pipes[i].width, canvas.height);
+    }
+
+    ctx.fillStyle = "white";
+    ctx.font = "30px Arial";
+    ctx.fillText("Score: " + score, 20, canvas.height - 20);
+    
+    drawBird();
+}
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    updateGame();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+```

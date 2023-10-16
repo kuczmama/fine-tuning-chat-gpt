@@ -1,0 +1,79 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="tetris" width="300" height="600"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f3f3;
+}
+
+canvas {
+    border: 1px solid #000;
+}
+```
+
+[script.js]
+```javascript
+const canvas = document.getElementById('tetris');
+const context = canvas.getContext('2d');
+context.scale(20, 20);
+
+function createMatrix(w, h) {
+    const matrix = [];
+    while (h--) {
+        matrix.push(new Array(w).fill(0));
+    }
+    return matrix;
+}
+
+function draw() {
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    drawMatrix(player.matrix, player.pos);
+}
+
+function drawMatrix(matrix, offset) {
+    matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                context.fillStyle = 'red';
+                context.fillRect(x + offset.x, y + offset.y, 1, 1);
+            }
+        });
+    });
+}
+
+function update() {
+    draw();
+    requestAnimationFrame(update);
+}
+
+const arena = createMatrix(10, 20);
+const player = {
+    pos: {x: 5, y: 5},
+    matrix: [
+        [1, 1, 1, 1],
+    ],
+};
+
+update();
+```

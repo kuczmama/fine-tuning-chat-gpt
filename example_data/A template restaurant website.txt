@@ -1,0 +1,93 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicious Eats Restaurant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Delicious Eats</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section id="home">
+        <h2>Welcome to Delicious Eats</h2>
+        <p>Experience the best culinary delights in the city.</p>
+    </section>
+    <section id="menu">
+        <h2>Menu</h2>
+        <ul>
+            <li>Spaghetti Carbonara - $12</li>
+            <li>Classic Burger - $10</li>
+            <li>Caesar Salad - $8</li>
+            <li>Chocolate Mousse - $6</li>
+        </ul>
+    </section>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We have been serving delectable dishes since 1990.</p>
+    </section>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: delicious@eats.com</p>
+        <p>Phone: (123) 456-7890</p>
+    </section>
+    <footer>
+        <p>&copy; 2023 Delicious Eats</p>
+    </footer>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    margin: 0 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+section {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+```

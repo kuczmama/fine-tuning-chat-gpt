@@ -1,0 +1,104 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div id="word"></div>
+        <div id="letters"></div>
+        <button onclick="startGame()">Start New Game</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f3f3;
+}
+
+.game-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#word {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#letters button {
+    margin: 5px;
+}
+```
+
+[script.js]
+```javascript
+let wordList = ['programming', 'hangman', 'javascript', 'developer'];
+let selectedWord = '';
+let displayWord = '';
+let attempts = 6;
+
+function startGame() {
+    selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
+    displayWord = '_'.repeat(selectedWord.length);
+    document.getElementById('word').innerText = displayWord;
+    renderLetters();
+}
+
+function renderLetters() {
+    let letterContainer = document.getElementById('letters');
+    letterContainer.innerHTML = '';
+    for (let i = 97; i <= 122; i++) {
+        let letter = String.fromCharCode(i);
+        let btn = document.createElement('button');
+        btn.innerText = letter;
+        btn.onclick = function() { makeGuess(letter); };
+        letterContainer.appendChild(btn);
+    }
+}
+
+function makeGuess(letter) {
+    let wordArray = selectedWord.split('');
+    let displayArray = displayWord.split('');
+    if (selectedWord.includes(letter)) {
+        wordArray.forEach((char, index) => {
+            if (char === letter) {
+                displayArray[index] = letter;
+            }
+        });
+        displayWord = displayArray.join('');
+    } else {
+        attempts--;
+        if (attempts === 0) {
+            alert('You lost! The word was: ' + selectedWord);
+            startGame();
+            return;
+        }
+    }
+    if (!displayWord.includes('_')) {
+        alert('You won!');
+        startGame();
+        return;
+    }
+    document.getElementById('word').innerText = displayWord;
+}
+
+startGame();
+```

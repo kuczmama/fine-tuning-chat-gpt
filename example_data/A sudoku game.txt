@@ -1,0 +1,116 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <table id="sudokuTable"></table>
+    <button onclick="solveSudoku()">Solve</button>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 20px;
+}
+
+button {
+    margin-top: 20px;
+}
+```
+
+[script.js]
+```javascript
+const SIZE = 9;
+const sudokuTable = document.getElementById('sudokuTable');
+
+// Initialize empty board
+let board = Array(SIZE).fill(0).map(row => Array(SIZE).fill(0));
+
+function renderBoard() {
+    sudokuTable.innerHTML = '';
+    for (let i = 0; i < SIZE; i++) {
+        const row = document.createElement('tr');
+        for (let j = 0; j < SIZE; j++) {
+            const cell = document.createElement('td');
+            if (board[i][j] !== 0) {
+                cell.textContent = board[i][j];
+            }
+            row.appendChild(cell);
+        }
+        sudokuTable.appendChild(row);
+    }
+}
+
+function isSafeToPlaceNumber(x, y, num) {
+    for (let i = 0; i < SIZE; i++) {
+        if (board[x][i] === num || board[i][y] === num) {
+            return false;
+        }
+    }
+    const startRow = x - x % 3, startCol = y - y % 3;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i + startRow][j + startCol] === num) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function solveSudokuUtil(x, y) {
+    if (x === SIZE - 1 && y === SIZE) {
+        renderBoard();
+        return true;
+    }
+    if (y === SIZE) {
+        x++;
+        y = 0;
+    }
+    if (board[x][y] > 0) {
+        return solveSudokuUtil(x, y + 1);
+    }
+    for (let num = 1; num <= SIZE; num++) {
+        if (isSafeToPlaceNumber(x, y, num)) {
+            board[x][y] = num;
+            if (solveSudokuUtil(x, y + 1)) {
+                return true;
+            }
+            board[x][y] = 0;
+        }
+    }
+    return false;
+}
+
+function solveSudoku() {
+    solveSudokuUtil(0, 0);
+}
+
+renderBoard();
+```

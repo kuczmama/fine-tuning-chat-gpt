@@ -1,0 +1,93 @@
+[index.html]
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Music Shop</h1>
+    </header>
+    <main>
+        <ul id="products"></ul>
+    </main>
+    <footer>
+        <p>Music Shop &copy; 2023</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+[styles.css]
+```css
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+```
+
+[script.js]
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+    let products = [
+        { name: 'Guitar', price: 500 },
+        { name: 'Drums', price: 700 },
+        { name: 'Piano', price: 1500 },
+        { name: 'Flute', price: 200 },
+        { name: 'Microphone', price: 150 }
+    ];
+
+    let productsContainer = document.getElementById('products');
+    
+    products.forEach(product => {
+        let li = document.createElement('li');
+        li.innerHTML = `<span>${product.name}</span> <span>$${product.price}</span>`;
+        productsContainer.appendChild(li);
+    });
+});
+```
