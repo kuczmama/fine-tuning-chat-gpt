@@ -62,7 +62,7 @@ And then, it's transformation time! 🦋 We'll get these files ready for trainin
 <a name="model-upload-time"></a>
 ## Model Upload Time! 🚀
 
-Alright, fam! Once we have our data ready, it's time to give GPT-3 a little training session. Imagine it as a mini bootcamp! 🏋️‍♂️ We'll do this at OpenAI's platform. 
+Alright, fam! Once we have our data ready, it's time to give GPT-3 a little training session. Imagine it as a mini bootcamp! 🏋️‍♂️ We'll do this at OpenAI's platform: https://platform.openai.com/finetune
 
 <a name="the-moment-of-truth"></a>
 ## The Moment of Truth: Testing! 🎉
@@ -72,3 +72,9 @@ Alright! Moment of truth! After that mini bootcamp, it's time to see how well GP
 ---
 
 Happy coding and fine-tuning! Remember, with every iteration, we get closer to perfection! 🌈🎈🎉
+
+## Need data?
+
+Checkout hugging face, they have over 70,000 datasets that you can use for fine-tuning.
+
+https://huggingface.co/datasets
